@@ -39,13 +39,9 @@ class _HomeState extends State<Home> {
             onPressed: () {
               _controller.outImage().then((image) async {
                 //保存或上传代码
-                var bytes =
-                    (await (image.toByteData(format: ImageByteFormat.png)))!
-                        .buffer
-                        .asUint8List();
+                var bytes = (await (image.toByteData(format: ImageByteFormat.png)))!.buffer.asUint8List();
 
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                   return ShowImage(
                     data: bytes,
                   );
@@ -58,9 +54,12 @@ class _HomeState extends State<Home> {
       ),
       body: Container(
         padding: EdgeInsets.all(50),
-        child: CropperImage(
-          AssetImage("images/test.webp"),
-          controller: _controller,
+        child: AspectRatio(
+          aspectRatio: 1.0,
+          child: CropperImage(
+            AssetImage("images/test.webp"),
+            controller: _controller,
+          ),
         ),
       ),
     );

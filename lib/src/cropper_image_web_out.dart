@@ -28,16 +28,13 @@ Future<ui.Image> outImage({
       scale: scale,
     );
   }
-  var canvas =
-      CanvasElement(width: outWidth.toInt(), height: outHeight.toInt());
-    var temp = outHeight / (bottom - top);
+  var canvas = CanvasElement(width: outWidth.toInt(), height: outHeight.toInt());
+  var temp = outHeight / (bottom - top);
 
-    canvas.context2D
-        .translate(outWidth / 2 + drawX * temp, outHeight / 2 + drawY * temp);
-    canvas.context2D.rotate(rotate1);
-    canvas.context2D.scale(scale * temp, scale * temp);
-    canvas.context2D.drawImage(
-        (image as dynamic).imgElement, -image.width / 2, -image.height / 2);
+  canvas.context2D.translate(outWidth / 2 + drawX * temp, outHeight / 2 + drawY * temp);
+  canvas.context2D.rotate(rotate1);
+  canvas.context2D.scale(scale * temp, scale * temp);
+  canvas.context2D.drawImage((image as dynamic).imgElement, -image.width / 2, -image.height / 2);
 
   return Future.value((HtmlImage(canvas)));
 }
@@ -54,8 +51,7 @@ class HtmlImage implements ui.Image {
   int get height => element.height!;
 
   @override
-  Future<ByteData> toByteData(
-      {ui.ImageByteFormat format = ui.ImageByteFormat.png}) async {
+  Future<ByteData> toByteData({ui.ImageByteFormat format = ui.ImageByteFormat.png}) async {
     var completer = new Completer<ByteData>();
 
     final out = new FileReader();
@@ -90,4 +86,8 @@ class HtmlImage implements ui.Image {
   bool isCloneOf(ui.Image other) {
     return false;
   }
+
+  @override
+  // TODO: implement colorSpace
+  ui.ColorSpace get colorSpace => throw UnimplementedError();
 }
