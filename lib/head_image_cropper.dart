@@ -21,7 +21,7 @@ class CropperController {
 }
 
 ///图像裁剪，适用于头像裁剪和输出固定尺寸的图片裁剪
-class CropperImage extends RenderObjectWidget {
+class CropperImage extends SingleChildRenderObjectWidget {
   CropperImage(
     this.image, {
     Key? key,
@@ -145,7 +145,7 @@ class CropperImage extends RenderObjectWidget {
   }
 }
 
-class CropperImageElement extends RenderObjectElement {
+class CropperImageElement extends SingleChildRenderObjectElement {
   ImageProvider? _image;
 
   CropperImageElement(CropperImage widget) : super(widget);
@@ -408,8 +408,8 @@ class CropperImageRender extends RenderProxyBox {
       var color = (0 == (y / backBoxSize) % 2) ? backBoxColor0 : backBoxColor1;
 
       for (double x = 0; x < size.width; x += backBoxSize) {
-        canvas.drawRect(
-            Rect.fromLTRB(x, y, x + backBoxSize, y + backBoxSize), Paint()..color = (color = color == backBoxColor1 ? backBoxColor0 : backBoxColor1));
+        canvas.drawRect(Rect.fromLTRB(x, y, x + backBoxSize, y + backBoxSize),
+            Paint()..color = (color = color == backBoxColor1 ? backBoxColor0 : backBoxColor1));
       }
     }
   }
@@ -467,7 +467,7 @@ class CropperImageRender extends RenderProxyBox {
       fw = fh;
     }
     var width = outWidth * fw / 2 - maskPadding;
-    var height = outHeight * fw / 2 - maskPadding;
+    var height = outHeight * fh / 2 - maskPadding;
     centerX = size.width / 2;
     centerY = size.height / 2;
     left = centerX! - width;
